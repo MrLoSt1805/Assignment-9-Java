@@ -19,5 +19,30 @@ public class StudentApp {
         }
     }
 
+    // Adds student to database
+    public void addStudent() {
+        try {
+            sc.nextLine(); // clear buffer
+            System.out.print("Enter Name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter PRN: ");
+            String prn = sc.nextLine();
+            System.out.print("Enter Age: ");
+            int age = sc.nextInt();
+
+            String query = "INSERT INTO students(name, prn, age) VALUES (?, ?, ?)";
+            Connection con = DBConnection.getConnection();
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, name);
+            pst.setString(2, prn);
+            pst.setInt(3, age);
+            pst.executeUpdate();
+
+            System.out.println("Student added successfully.");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     
 }
