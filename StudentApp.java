@@ -60,5 +60,27 @@ public class StudentApp {
         }
     }
 
+    // Searches student by PRN
+    public void searchByPRN() {
+        try {
+            sc.nextLine();
+            System.out.print("Enter PRN: ");
+            String prn = sc.nextLine();
+            String query = "SELECT * FROM students WHERE prn = ?";
+            Connection con = DBConnection.getConnection();
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, prn);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                System.out.println("Found: Name: " + rs.getString("name") + ", Age: " + rs.getInt("age"));
+            } else {
+                System.out.println("Student not found.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     
 }
