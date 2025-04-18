@@ -82,5 +82,22 @@ public class StudentApp {
         }
     }
 
-    
+    // Deletes student by ID
+    public void deleteStudent() {
+        try {
+            System.out.print("Enter ID to delete: ");
+            int id = sc.nextInt();
+            String query = "DELETE FROM students WHERE id = ?";
+            Connection con = DBConnection.getConnection();
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, id);
+            int rows = pst.executeUpdate();
+            if (rows > 0)
+                System.out.println("Student deleted.");
+            else
+                System.out.println("Student not found.");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 }
