@@ -44,5 +44,21 @@ public class StudentApp {
         }
     }
 
+    // Displays all students from database
+    public void displayStudents() {
+        try {
+            Connection con = DBConnection.getConnection();
+            String query = "SELECT * FROM students";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name") +
+                        ", PRN: " + rs.getString("prn") + ", Age: " + rs.getInt("age"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     
 }
